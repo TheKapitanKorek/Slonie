@@ -1,0 +1,15 @@
+{
+  "name": "zadanierekrutacyjne",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "nexe"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nexe": "^3.3.2"
+  }
+}
