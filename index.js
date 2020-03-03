@@ -1,13 +1,8 @@
-const fs = require("fs");
-const args = process.argv;
-if (args[2] && !args[3]) {
-  const text = fs.readFileSync(args[2]).toString();
-  const [
-    numberOfElephants,
-    elephantsWeights,
-    currentLine,
-    desiredLine
-  ] = text.split(/\n/).map(el => el.split(/\s/));
+process.stdin.on("data", function(chunk) {
+  const [numberOfElephants, elephantsWeights, currentLine, desiredLine] = chunk
+    .toString()
+    .split(/\n/)
+    .map(el => el.split(/\s/));
   weightsParsed = elephantsWeights.map(el => parseInt(el));
   const globalMin = getMin(weightsParsed);
   const chains = findChains(currentLine, desiredLine, numberOfElephants);
@@ -22,12 +17,8 @@ if (args[2] && !args[3]) {
     })
     .reduce((a, b) => a + b);
   console.log(finalSum);
-  return finalSum;
-} else {
-  console.log(
-    `Please specidy the input file directory as follows: ./ZadanieRekrutacyjne.exe yourInputFile.in`
-  );
-}
+});
+
 function getMin(arr) {
   let len = arr.length;
   let min = Infinity;
