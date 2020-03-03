@@ -1,8 +1,19 @@
-process.stdin.on("data", function(chunk) {
-  const [numberOfElephants, elephantsWeights, currentLine, desiredLine] = chunk
-    .toString()
-    .split(/\n/)
-    .map(el => el.split(/\s/));
+const readLine = require("readline");
+let rl = readLine.createInterface({
+  input: process.stdin,
+  terminal: false
+});
+const data = [];
+rl.on("line", function(line) {
+  data.push(line);
+});
+rl.on("close", function() {
+  const [
+    numberOfElephants,
+    elephantsWeights,
+    currentLine,
+    desiredLine
+  ] = data.map(el => el.split(/\s/));
   weightsParsed = elephantsWeights.map(el => parseInt(el));
   const globalMin = getMin(weightsParsed);
   const chains = findChains(currentLine, desiredLine, numberOfElephants);
@@ -17,6 +28,7 @@ process.stdin.on("data", function(chunk) {
     })
     .reduce((a, b) => a + b);
   console.log(finalSum);
+  process.exit(0);
 });
 
 function getMin(arr) {
@@ -28,7 +40,7 @@ function getMin(arr) {
   return min;
 }
 
-function findChains(current, desired, numb) {
+findChains = (current, desired, numb) => {
   const c = [...current];
   const d = [...desired];
   const chains = [];
@@ -42,8 +54,9 @@ function findChains(current, desired, numb) {
         c[curIndex] = "#";
         curIndex = nextIndex;
       } while (i !== curIndex);
+      console.log("chain found");
       chains.push(chain);
     }
   }
   return chains;
-}
+};
