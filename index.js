@@ -39,24 +39,29 @@ function getMin(arr) {
   }
   return min;
 }
-
-findChains = (current, desired, numb) => {
-  const c = [...current];
-  const d = [...desired];
+function findChains(cur, des, n) {
+  const p = [];
+  for (let i = 0; i < n; i++) {
+    p[des[i] - 1] = cur[i];
+  }
+  const odw = [];
+  for (let i = 0; i < n; i++) {
+    odw.push(false);
+  }
+  let c = 0;
   const chains = [];
-  for (let i = 0; i < numb; i++) {
-    if (c[i] !== "#") {
+  for (let i = 0; i < n; i++) {
+    if (!odw[i]) {
+      c = c + 1;
+      let x = i;
       const chain = [];
-      let curIndex = i;
-      do {
-        chain.push(c[curIndex]);
-        const nextIndex = d.indexOf(`${c[curIndex]}`);
-        c[curIndex] = "#";
-        curIndex = nextIndex;
-      } while (i !== curIndex);
-      console.log("chain found");
+      while (!odw[x]) {
+        odw[x] = true;
+        chain.push(x + 1);
+        x = p[x] - 1;
+      }
       chains.push(chain);
     }
   }
   return chains;
-};
+}
